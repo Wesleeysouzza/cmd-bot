@@ -191,15 +191,29 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 										//começo a validação para o for
 										let els_Respostas = []; 
-										els_Respostas = await page.$$('#d_questao_'+number_replace+' > div:nth-child(2) > div:nth-child(3) > div.respostas.form.form-group label');
+										
+											els_Respostas = await page.$$('#d_questao_'+number_replace+' > div:nth-child(2) > div:nth-child(3) > div.respostas.form.form-group label');
+
+
+									
 										var lego = "";
 
 										//inicio de exibição do form
 										for (let is = 0; is < els_Respostas.length;) {
 
 											//capturo o titulo da resposta do form
-											const title_resposta =  await els_Respostas[is].$eval('p', el => el.innerHTML);
+
+											let title_resposta
+											try {
+
+												title_resposta =  await els_Respostas[is].$eval('p', el => el.innerHTML);
+											}catch(e){
+
+											}
+											
 											if (title_resposta) {
+
+												//console.log('titulo das resposta: ', title_resposta)
 
 												//inner json => juntando 
 												array_full_perguntas.push(title_resposta);
