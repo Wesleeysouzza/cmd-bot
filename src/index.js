@@ -158,26 +158,39 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 							const checked_questao_fix_out = await page.$("#d_questao_"+number_replace+" > div:nth-child(2) > div.panel-heading > div > h3");
 						    if (checked_questao_fix_out) {
 
-
-								const title_questao =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
-								const pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
+									let pergunta_complementar ;
+									let pergunta_complementar_pos;
 								
+									const title_questao =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
 
-								
-								let pergunta_complementar ;
-							try{
+								  const  pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
+								 
+
+							 try{
 
 									 pergunta_complementar =  await page.$eval('#d_questao_'+number_replace+' div.panel-body.panel-body-perguntas.highlighter-context > div:nth-child(2)'  , el => el.innerHTML);
 									
 								}catch(e){
 								 //	console.log('div da pergunta complemntar não econtrado, seguir')
 									pergunta_complementar = "<br>";
+
 								}
+
+							try{
+
+									 pergunta_complementar_pos =  await page.$eval('#d_questao_'+number_replace+' div.panel-body.panel-body-perguntas > div.pergunta.pergunta_pos'  , el => el.innerHTML);
+									
+								}catch(e){
 								
+									pergunta_complementar_pos = "<br>";
+								}
+						
 							
 							
 								const dificuldade_get =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-heading > div.panel-title-box > h3 > span > span', el => el.innerText);
+
 								const materia_get =  await page.$eval('body > div.page-container.page-navigation-top.page-navigation-top-fixed > div > div.row.page-content-wrap > h1 > a', el => el.innerText);
+							
 								const get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > span', el => el.innerText);
 
 								//get instituição e ano
@@ -270,18 +283,21 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 													
 
-													 const  conteudo = pergunta_questao + "<br>"+  pergunta_complementar;  
+													 const  conteudo = pergunta_questao + "<br>"+  pergunta_complementar + "<br>"+ pergunta_complementar_pos;  
 
 													 
-													// console.log("------------------Pergunta questão -------------------")
-													// console.log(pergunta_questao)
+													console.log("------------------Pergunta questão -------------------")
+													console.log(pergunta_questao)
 
-													// console.log("-----------------Pergunta complementar --------------------")
-													// console.log(pergunta_complementar)
+													console.log("-----------------Pergunta complementar --------------------")
+													console.log(pergunta_complementar)
+
+													console.log("-----------------Pergunta pós --------------------")
+													console.log(pergunta_complementar_pos)
 													
-													// console.log("-------------------Conteudo ------------------------")
-													// console.log(conteudo);
-													// console.log("------------------------------------------------------")
+													console.log("-------------------Conteudo ------------------------")
+													console.log(conteudo);
+													console.log("------------------------------------------------------")
 													
 													const base64_item = nodeBase64.encode(conteudo);
 													const exercicio = [
@@ -310,13 +326,13 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													//realizo o envio das informacoes
 
 													
-													fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
-													  method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-													  body: JSON.stringify(exercicio)
-													})
-													.then((response) => { 
-														log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
-													});
+													// fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
+													//   method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+													//   body: JSON.stringify(exercicio)
+													// })
+													// .then((response) => { 
+													// 	log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
+													// });
 
 												}
 
