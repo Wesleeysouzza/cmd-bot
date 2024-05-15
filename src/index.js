@@ -286,18 +286,18 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													 const  conteudo = pergunta_questao + "<br>"+  pergunta_complementar + "<br>"+ pergunta_complementar_pos;  
 
 													 
-													console.log("------------------Pergunta questão -------------------")
-													console.log(pergunta_questao)
+													// console.log("------------------Pergunta questão -------------------")
+													// console.log(pergunta_questao)
 
-													console.log("-----------------Pergunta complementar --------------------")
-													console.log(pergunta_complementar)
+													// console.log("-----------------Pergunta complementar --------------------")
+													// console.log(pergunta_complementar)
 
-													console.log("-----------------Pergunta pós --------------------")
-													console.log(pergunta_complementar_pos)
+													// console.log("-----------------Pergunta pós --------------------")
+													// console.log(pergunta_complementar_pos)
 													
-													console.log("-------------------Conteudo ------------------------")
-													console.log(conteudo);
-													console.log("------------------------------------------------------")
+													// console.log("-------------------Conteudo ------------------------")
+													// console.log(conteudo);
+													// console.log("------------------------------------------------------")
 													
 													const base64_item = nodeBase64.encode(conteudo);
 													const exercicio = [
@@ -326,13 +326,13 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													//realizo o envio das informacoes
 
 													
-													// fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
-													//   method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-													//   body: JSON.stringify(exercicio)
-													// })
-													// .then((response) => { 
-													// 	log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
-													// });
+													fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
+													  method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+													  body: JSON.stringify(exercicio)
+													})
+													.then((response) => { 
+														log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
+													});
 
 												}
 
