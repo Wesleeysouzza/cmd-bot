@@ -158,10 +158,15 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 							const checked_questao_fix_out = await page.$("#d_questao_"+number_replace+" > div:nth-child(2) > div.panel-heading > div > h3");
 						    if (checked_questao_fix_out) {
 
+
+									
 									let pergunta_complementar ;
 									let pergunta_complementar_pos;
+									let dificuldade_get;
 								
 									const title_questao =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
+
+									
 
 								  const  pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
 								 
@@ -187,10 +192,22 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 						
 							
 							
-								const dificuldade_get =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-heading > div.panel-title-box > h3 > span > span', el => el.innerText);
 
 								const materia_get =  await page.$eval('body > div.page-container.page-navigation-top.page-navigation-top-fixed > div > div.row.page-content-wrap > h1 > a', el => el.innerText);
-							
+								const df_get =   await page.$('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-heading > div.d-flex.btn-block.justify-content-between > ul > #liTags'+number_replace);
+							// console.log((df_get))
+								await df_get.click([1])
+
+								try{
+									dificuldade_get =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-heading > div.panel-title-box > h3 > #dificuldade_tempo_'+number_replace+' > #dificuldade_'+number_replace, el => el.innerText);
+ 
+							 }catch(e){
+								 
+									dificuldade_get = ''
+							 }
+							 
+						
+						
 								const get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > span', el => el.innerText);
 
 								//get instituição e ano
@@ -206,6 +223,8 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 										let els_Respostas = []; 
 										
 											els_Respostas = await page.$$('#d_questao_'+number_replace+' > div:nth-child(2) > div:nth-child(3) > div.respostas.form.form-group label');
+
+											
 
 
 									
@@ -233,10 +252,12 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 												//adiciono um click apenas em um
 												if (is == 1) {
+													
 													await els_Respostas[is].click();
 													await page.waitForTimeout(10000);
 
 													//add click em button
+													
 													const button_responder = await page.$("#d_questao_"+number_replace+" > div:nth-child(2) > div:nth-child(3) > div.respostas.form.form-group > button");
 													if (button_responder) {
 													   await button_responder.click();
@@ -321,7 +342,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 													];
 													
-													//console.log(exercicio);
+													console.log(exercicio);
 
 													//realizo o envio das informacoes
 
