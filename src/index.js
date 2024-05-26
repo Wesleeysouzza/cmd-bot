@@ -342,7 +342,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 													];
 													
-													console.log(exercicio);
+													//console.log(exercicio);
 
 													//realizo o envio das informacoes
 
