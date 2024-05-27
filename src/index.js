@@ -319,6 +319,9 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													// console.log("-------------------Conteudo ------------------------")
 													// console.log(conteudo);
 													// console.log("------------------------------------------------------")
+
+													// remover possiveis espações em branco 
+													const dificuldade_get_req = dificuldade_get.replace(/\s/g, '')
 													
 													const base64_item = nodeBase64.encode(conteudo);
 													const exercicio = [
@@ -326,7 +329,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													    "titulo":""+title_questao+"",
 													    "resposta_certa":""+inner_solp+"",
 													    "conteudo":""+base64_item+"",
-													    "dificuldade":""+dificuldade_get+"",
+													    "dificuldade":""+dificuldade_get_req+"",
 													    "materia":""+materia_get+"",
 													    "instituicao": ""+name_item+"",
 													    "ano": ""+ano_item+"",
@@ -342,7 +345,6 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 													];
 													
-													//console.log(exercicio);
 
 													//realizo o envio das informacoes
 
@@ -355,7 +357,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 														log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
 													});
 
-												}
+												} 
 
 											} 
 											iss++;
