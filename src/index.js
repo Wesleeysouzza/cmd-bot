@@ -10,6 +10,7 @@ const fetch = require('node-fetch');
 var nodeBase64 = require('nodejs-base64-converter');
 
 
+
 //pergunto o link de mapeamento, para encurtar o processo
 rl.question('Deseja carregar algum salvamento de PILHA? 1 => SIM ou 2 => NÃO ', (name_type) => {
 
@@ -163,6 +164,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 									let pergunta_complementar ;
 									let pergunta_complementar_pos;
 									let dificuldade_get;
+									let get_names;
 								
 									const title_questao =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
 
@@ -206,9 +208,19 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 									dificuldade_get = ''
 							 }
 							 
+
+
+							 try{
+								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > span', el => el.innerText);
+								
+
+						 }catch(e){
+							 
+								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > h3> span', el => el.innerText);
+								
+						 }
 						
-						
-								const get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > span', el => el.innerText);
+								
 
 								//get instituição e ano
 								const get_names_separate = get_names.split("20");
