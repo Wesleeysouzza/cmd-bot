@@ -210,22 +210,38 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 							 
 
 
-							 try{
-								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > span', el => el.innerText);
+							// try{
+								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > span', el => el.innerText);
+							
 								
 
-						 }catch(e){
+						// }catch(e){
 							 
-								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div > h3> span', el => el.innerText);
-								
-						 }
+								// try {
+								// 	  //   get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
+										
+
+								// 		// }catch(e){
+
+											
+								// 		// 	get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > span', el => el.innerText);
+
+
+								// 		}
+
+										
+						// }
+						 
 						
-								
+							
 
 								//get instituição e ano
 								const get_names_separate = get_names.split("20");
 								var ano_item = "20"+get_names_separate[1]+""
 								var name_item = get_names_separate[0];
+
+								// console.log(ano_item)
+								// console.log(name_item)
 
 								if (title_questao) {
 
