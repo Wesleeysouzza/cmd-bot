@@ -386,13 +386,13 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													//realizo o envio das informacoes
 
 													
-													// fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
-													//   method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-													//   body: JSON.stringify(exercicio)
-													// })
-													// .then((response) => { 
-													// 	log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
-													// });
+													fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
+													  method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+													  body: JSON.stringify(exercicio)
+													})
+													.then((response) => { 
+														log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
+													});
 
 												} 
 
