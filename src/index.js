@@ -165,13 +165,19 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 									let pergunta_complementar_pos;
 									let dificuldade_get;
 									let get_names;
+									let pergunta_questao; 
 								
 									const title_questao =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
 
 									
-
-								  const  pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
+								try {
+								 				pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
+								}catch(e){
+												pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas > div'  , el => el.innerHTML);
+												console.log(pergunta_questao)
+								}
 								 
+								
 
 							 try{
 
@@ -182,6 +188,8 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 									pergunta_complementar = "<br>";
 
 								}
+
+								
 
 							try{
 
@@ -214,6 +222,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > span', el => el.innerText);
 							
 								
+								console.log(get_names, 'i=', i)
 
 						// }catch(e){
 							 
@@ -377,13 +386,13 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 													//realizo o envio das informacoes
 
 													
-													fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
-													  method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-													  body: JSON.stringify(exercicio)
-													})
-													.then((response) => { 
-														log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
-													});
+													// fetch("https://www.estudie.com.br/dashboard/API_HUB/request_exercicios.php", {
+													//   method: "post", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+													//   body: JSON.stringify(exercicio)
+													// })
+													// .then((response) => { 
+													// 	log_viewn('success', "Questão: ("+title_questao+") enviada com sucesso.."); 
+													// });
 
 												} 
 
