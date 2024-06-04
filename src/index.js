@@ -174,7 +174,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 								 				pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas.highlighter-context > div'  , el => el.innerHTML);
 								}catch(e){
 												pergunta_questao =  await page.$eval('#d_questao_'+number_replace+' div:nth-child(2) > div.panel-body.panel-body-perguntas > div'  , el => el.innerHTML);
-												console.log(pergunta_questao)
+												
 								}
 								 
 								
@@ -218,13 +218,11 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 							 
 
 
-							// try{
+							 try{
 								get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > span', el => el.innerText);
 							
 								
-								console.log(get_names, 'i=', i)
-
-						// }catch(e){
+						 }catch(e){
 							 
 								// try {
 								// 	  //   get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
@@ -239,7 +237,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 								// 		}
 
 										
-						// }
+						 }
 						 
 						
 							
