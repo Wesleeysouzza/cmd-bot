@@ -194,7 +194,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 							try{
 
 									 pergunta_complementar_pos =  await page.$eval('#d_questao_'+number_replace+' div.panel-body.panel-body-perguntas > div.pergunta.pergunta_pos'  , el => el.innerHTML);
-									
+
 								}catch(e){
 								
 									pergunta_complementar_pos = "<br>";
@@ -224,20 +224,14 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 								
 						 }catch(e){
 							 
-								// try {
-								// 	  //   get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > h3', el => el.innerText);
-										
-
-								// 		// }catch(e){
-
-											
-								// 		// 	get_names =  await page.$eval('#d_questao_'+number_replace+' > div:nth-child(2) > div.panel-heading > div.panel-title-box > span', el => el.innerText);
-
-
-								// 		}
-
+							// caso a tag acima não seja encontrado,  o sistema continua 
 										
 						 }
+
+
+						//  console.log("dificuldade: " + dificuldade_get + " questão : " + number_replace)
+						//  console.log()
+						//  console.log("-----------------------------")
 						 
 						
 							
@@ -274,9 +268,31 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 											try {
 
 												title_resposta =  await els_Respostas[is].$eval('p', el => el.innerHTML);
-											}catch(e){
 
-											}
+												// em alguns casos a teg $eval('p:nth-child('+pg+')' tem mais de 1 então precisa pegar, inclementado o valor de pg 
+												for (let pg=0; pg <5; pg++ ){
+													try{
+
+														const title_resposta_opt =  await els_Respostas[is].$eval('p:nth-child('+pg+')', el => el.innerHTML);
+
+														// validar para não pegar dados repetidos 
+														if (title_resposta !== title_resposta_opt){
+															title_resposta = title_resposta + "<br>" + title_resposta_opt
+														}
+		
+														}catch(e){}
+
+													}
+												
+												
+
+												// }catch(e){}
+												
+											}catch(e){}
+											
+											// console.log("respostas: "+ title_resposta)
+											// console.log()
+											// console.log("-------------------------------------")
 											
 											if (title_resposta) {
 
@@ -306,6 +322,9 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 										//começo a validação para o for
 										let els_Respostass = [];
 										els_Respostass = await page.$$('#d_questao_'+number_replace+' > div:nth-child(2) > div:nth-child(3) > div.respostas.form.form-group label');
+										 
+
+										
 
 
 										//inicio de exibição do form
@@ -337,10 +356,27 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 														var inner_solp = "0";
 													}
 
+													let conteudo; 
 													
+													// existe casos que a pergunta_complementar vem igual a pergunta_complementar_pos
+													if(pergunta_complementar!==pergunta_complementar_pos){
 
-													 const  conteudo = pergunta_questao + "<br>"+  pergunta_complementar + "<br>"+ pergunta_complementar_pos;  
+														 conteudo = pergunta_questao + "<br>"+  pergunta_complementar + "<br>"+ pergunta_complementar_pos;  
 
+													}else{
+														  conteudo = pergunta_questao + "<br>"+  pergunta_complementar  
+
+													}
+													 
+
+														// console.log()
+														// console.log("------------------------------------------------------------------------------------------------")
+														// console.log("pegusta_pos: " + pergunta_complementar_pos)
+														// console.log()
+														// console.log("------------------------------------------------------------------------------------------------")
+														// console.log("pegusta_complementar: " + pergunta_complementar)
+														// console.log()
+									         
 													 
 													// console.log("------------------Pergunta questão -------------------")
 													// console.log(pergunta_questao)
@@ -357,6 +393,8 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 
 													// remover possiveis espações em branco 
 													const dificuldade_get_req = dificuldade_get.replace(/\s/g, '')
+
+													 
 													
 													const base64_item = nodeBase64.encode(conteudo);
 													const exercicio = [
