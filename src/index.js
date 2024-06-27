@@ -270,7 +270,7 @@ async function asyncCallss(url_mapeamento, conteudo, topico, topico2, pages) {
 												title_resposta =  await els_Respostas[is].$eval('p', el => el.innerHTML);
 
 												// em alguns casos a teg $eval('p:nth-child('+pg+')' tem mais de 1 então precisa pegar, inclementado o valor de pg 
-												for (let pg=0; pg <5; pg++ ){
+												for (let pg=0; pg <6; pg++ ){
 													try{
 
 														const title_resposta_opt =  await els_Respostas[is].$eval('p:nth-child('+pg+')', el => el.innerHTML);
